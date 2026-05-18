@@ -18,9 +18,9 @@ Using the `Tiers completed` table in the learner profile and the [Session Sequen
 - The last completed session (topic name + tier)
 - The next session in sequence (file path + topic + relevance rating)
 
-### Step 3 — Present progress summary and prompt for a decision
+### Step 3 — Show progress summary and begin
 
-Show the user a brief progress summary, then use the `AskUserQuestion` tool to ask what to do next. Do not start teaching until the user confirms.
+Show the user a brief progress summary, then immediately start the next session without waiting for confirmation.
 
 **Progress summary format:**
 
@@ -28,19 +28,13 @@ Show the user a brief progress summary, then use the `AskUserQuestion` tool to a
 **Progress so far:** [N] of 69 sessions complete.
 Last completed: [Topic] — Tier [N] ([date])
 
-**Next up:** [Topic] — Tier [N] ([HIGH / MED / LOW] relevance)
+**Starting:** [Topic] — Tier [N] ([HIGH / MED / LOW] relevance)
 [One sentence on what this session covers and why it matters for this learner's context.]
 ```
 
-**AskUserQuestion options to present:**
-
-1. **Continue** — start the suggested next session
-2. **Pick a different session** — learner names a topic or session number from the sequence
-3. **Review a past session** — revisit a completed topic (useful if carrying forward open questions)
-
 ### Step 4 — Run the session
 
-Once the user confirms a session:
+For the next session in sequence:
 1. Load the prompt file for that session from `prompts/`
 2. Run the session following `prompts/CLAUDE.md` instructor instructions (read that file if not already in context)
 3. Apply depth calibration from `prompts/learner-relevance.md` for the topic
@@ -48,6 +42,20 @@ Once the user confirms a session:
 ### Step 5 — Update the learner profile
 
 At the end of the session, update `prompts/learner-profile.md` per the instructions in `prompts/CLAUDE.md`. Do not ask for permission — just write the file.
+
+### Step 6 — Prompt to start the next session
+
+After saving progress, display exactly the content inside `<closing_message>` and nothing after it. Do not include the `<closing_message>` tags in the response.
+
+<closing_message>
+Session saved. To start the next session, open a new conversation and use:
+
+```
+@TUTORIAL.md
+```
+</closing_message>
+
+Only `@TUTORIAL.md` should be inside the code block so the learner can copy and paste just the prompt directly.
 
 ---
 

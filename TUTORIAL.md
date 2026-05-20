@@ -9,8 +9,8 @@
 ### Step 1 — Load context (do this silently, without narrating)
 
 Read both files before saying anything to the user:
-- `prompts/learner-profile.md`
-- `prompts/learner-relevance.md`
+- `learner/profile.md`
+- `learner/relevance.md`
 
 ### Step 2 — Determine next session
 
@@ -36,32 +36,69 @@ Last completed: [Topic] — Tier [N] ([date])
 
 For the next session in sequence:
 1. Load the prompt file for that session from `prompts/`
-2. Run the session following `prompts/CLAUDE.md` instructor instructions (read that file if not already in context)
-3. Apply depth calibration from `prompts/learner-relevance.md` for the topic
+2. Run the session
+3. Apply depth calibration from `learner/relevance.md` for the topic
 
 ### Step 5 — Update the learner profile
 
-At the end of the session, update `prompts/learner-profile.md` per the instructions in `prompts/CLAUDE.md`. Do not ask for permission — just write the file.
+At the end of the session, update `learner/profile.md`. Add a new entry under `## Session log`:
+
+```markdown
+### [Topic] — Tier [N] · [YYYY-MM-DD]
+
+**Covered:** [1–2 sentence summary of what was taught]
+
+**Strengths:** [Concepts the learner grasped quickly or explained back correctly]
+
+**Gaps / needs reinforcement:** [Concepts that needed multiple attempts, were answered incorrectly in the quiz, or the learner flagged as uncertain]
+
+**Open questions:** [Questions raised that weren't fully resolved — carry these forward]
+
+**Notes:** [Anything else relevant: learning style observations, areas of strong interest, analogies that landed well]
+```
+
+Also update the top-level sections of the profile if you learned something new about the learner's background or preferences. Do not ask for permission — just write the file.
+
+After writing the file, commit the changes:
+
+```
+git add learner/profile.md learner/relevance.md
+git commit -m "Session log: [Topic] — Tier [N] ([YYYY-MM-DD])"
+```
+
+Only stage and commit files that were actually modified. Do not ask for permission — just commit.
 
 ### Step 6 — Prompt to start the next session
 
 After saving progress, display exactly the content inside `<closing_message>` and nothing after it. Do not include the `<closing_message>` tags in the response.
 
 <closing_message>
-Session saved. To start the next session, open a new conversation and use:
+Session saved. To continue, open a new conversation and send:
 
 ```
-@TUTORIAL.md
+Continue
 ```
 </closing_message>
 
-Only `@TUTORIAL.md` should be inside the code block so the learner can copy and paste just the prompt directly.
+Only `Continue` should be inside the code block so the learner can copy and paste just the prompt directly.
 
 ---
 
 ## Depth calibration
 
-Before starting a session, cross-reference the topic against `prompts/learner-relevance.md`.
+Before starting a session, calibrate on two axes:
+
+### Learner history (from `learner/profile.md`)
+
+- **Skip or compress** topics the learner has already demonstrated mastery of
+- **Spend more time** on concepts flagged as gaps or areas of confusion in past sessions
+- **Connect new material** to concepts they already understand well
+- **Pick up open questions** if they are relevant to today's topic
+- **Match their preferred explanation style** if it has been recorded
+
+If the profile is empty or this is the first session, ask the learner directly about their background before proceeding.
+
+### Topic relevance (from `learner/relevance.md`)
 
 - **High relevance** — go deeper than the prompt file's default. Spend extra time on production implications. Ask follow-up questions that tie the material to building agentic systems.
 - **Medium relevance** — follow the prompt file as written. Connect concepts to the learner's context where natural.
@@ -71,24 +108,24 @@ Before starting a session, cross-reference the topic against `prompts/learner-re
 
 ## Progress tracking
 
-Progress is stored in `prompts/learner-profile.md`. The `Tiers completed` table is the canonical record of what has been completed. A session is complete when its session log entry has been written.
+Progress is stored in `learner/profile.md`. The `Tiers completed` table is the canonical record of what has been completed. A session is complete when its session log entry has been written.
 
 ### Learner profile folder structure
 
 The learner profile starts as a single file. When the session log grows beyond ~15 sessions, split it:
 
 ```
-prompts/
-  learner-profile.md          ← keep: background, tiers table, recurring strengths/gaps, open questions
+learner/
+  profile.md                  ← keep: background, tiers table, recurring strengths/gaps, open questions
   sessions/
     tier1-01-intro-to-ml.md   ← move: individual session logs go here
     tier1-02-transformers.md
     ...
 ```
 
-When splitting, update `learner-profile.md` to add a `## Session index` section with links to individual session files. The CLAUDE.md instructor instructions write new sessions to `prompts/sessions/` once that folder exists; otherwise they append to `prompts/learner-profile.md`.
+When splitting, update `learner/profile.md` to add a `## Session index` section with links to individual session files. Write new sessions to `learner/sessions/` once that folder exists; otherwise append to `learner/profile.md`.
 
-**To trigger the split:** if `prompts/sessions/` does not exist and the session log in `learner-profile.md` contains more than 15 entries, create the folder, move each session log entry to its own file, and update the profile.
+**To trigger the split:** if `learner/sessions/` does not exist and the session log in `learner/profile.md` contains more than 15 entries, create the folder, move each session log entry to its own file, and update the profile.
 
 ---
 
@@ -96,7 +133,7 @@ When splitting, update `learner-profile.md` to add a `## Session index` section 
 
 Work through all sessions at one tier before advancing to the next. Within a tier, follow the order below.
 
-Sessions marked `[HIGH]`, `[MED]`, or `[LOW]` reflect relevance for this learner's context (see `prompts/learner-relevance.md`). These labels affect depth, not whether to complete the session — complete all sessions in order.
+Sessions marked `[HIGH]`, `[MED]`, or `[LOW]` reflect relevance for this learner's context (see `learner/relevance.md`). These labels affect depth, not whether to complete the session — complete all sessions in order.
 
 ### Tier 1 — Foundations
 

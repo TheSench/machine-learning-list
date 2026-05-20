@@ -87,10 +87,40 @@ Answer follow-up questions normally. Evaluate if exchange revealed anything wort
 
 Only write file if something worth carrying forward.
 
+#### Update progress chart
+
+After updating `learner/profile.md`, regenerate `learner/progress.md` to reflect the new session count. The file has two sections:
+
+**Header:** `**[N] of 69 sessions complete** · Updated [YYYY-MM-DD]`
+
+Count total sessions by summing entries in the `Tiers completed` table.
+
+**Overview chart** (`xychart-beta`): bar chart with four bars — one per tier — showing how many sessions are complete in each. Tier totals are always 7 / 21 / 20 / 21.
+
+```
+xychart-beta
+    title "Sessions Completed by Tier"
+    x-axis ["Tier 1 (7)", "Tier 2 (21)", "Tier 3 (20)", "Tier 4 (21)"]
+    y-axis "Sessions" 0 --> 21
+    bar [<t1_done>, <t2_done>, <t3_done>, <t4_done>]
+```
+
+**Current tier chart** (`graph LR`): show all sessions in the active tier (the lowest tier not yet fully complete) as a linear chain of nodes. Use these classes:
+
+- `done` (green `#2d6a4f`) — completed sessions
+- `next` (orange `#f4a261`) — the immediately upcoming session (first incomplete)
+- `pending` (gray `#dee2e6`) — remaining sessions after next
+
+Node IDs: `T<tier>_<position>` (e.g., `T2_5`). Labels: short topic name (2 lines max). Connect all nodes left-to-right with `-->`.
+
+If Tier 4 is complete, replace the current tier chart with a completion message.
+
+The session order within each tier follows the [Session sequence](#session-sequence) table.
+
 Commit changes:
 
 ```
-git add learner/profile.md learner/relevance.md
+git add learner/profile.md learner/relevance.md learner/progress.md
 git commit -m "Session log: [Topic] — Tier [N] ([YYYY-MM-DD])"
 ```
 

@@ -27,8 +27,8 @@ Run this flow only when `learner/profile.md` does not exist (first session ever)
    - What's your professional background? (e.g. software engineering, product, research)
    - How much have you worked with ML systems hands-on?
    - Is there a particular area of ML you're most curious about or will use most?
-2. Based on their answers, create `learner/profile.md` using the template in [Learner profile template](#learner-profile-template).
-3. If `learner/relevance.md` also doesn't exist, create it using the template in [Relevance file template](#relevance-file-template), populated with MED for all topics (the default). Note in the file that it was auto-generated and can be customized.
+2. Based on their answers, create `learner/profile.md` using the template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md).
+3. If `learner/relevance.md` also doesn't exist, create it using the relevance file template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md), populated with MED for all topics (the default). Note in the file that it was auto-generated and can be customized.
 4. Then proceed to Step 2 as normal (start with session 1).
 
 ### Step 2 — Determine next session
@@ -116,123 +116,17 @@ Only `Continue` should be inside the code block so the learner can copy and past
 
 ## Depth calibration
 
-Before starting a session, calibrate on two axes:
+Calibrate on two axes before starting a session:
 
-### Learner history (from `learner/profile.md`)
+**Learner history** (`learner/profile.md`): skip mastered concepts, dwell on gaps, connect new material to prior strengths, surface open questions, match preferred explanation style. If the profile has no session log yet, check background for any stated strengths/gaps.
 
-- **Skip or compress** topics the learner has already demonstrated mastery of
-- **Spend more time** on concepts flagged as gaps or areas of confusion in past sessions
-- **Connect new material** to concepts they already understand well
-- **Pick up open questions** if they are relevant to today's topic
-- **Match their preferred explanation style** if it has been recorded
-
-If the profile is empty (file read succeeded but no session log entries exist), treat it as a near-first session: the background section should already be populated from initialization, but check for any prior strengths/gaps before diving in.
-
-### Topic relevance (from `learner/relevance.md`)
-
-- **High relevance** — go deeper than the prompt file's default. Spend extra time on production implications. Ask follow-up questions that tie the material to building agentic systems.
-- **Medium relevance** — follow the prompt file as written. Connect concepts to the learner's context where natural.
-- **Low relevance** — cover the core concepts at a lighter pace. Compress or skip peripheral details. Make note of what is being skipped and why, so the learner can return if their context changes.
+**Topic relevance** (`learner/relevance.md`): HIGH → go deeper than the prompt default, focus on production implications; MED → follow the prompt as written; LOW → cover core concepts only, compress peripheral details, note what was skipped.
 
 ---
 
-## Learner profile template
+## Templates
 
-Use this when creating `learner/profile.md` for the first time:
-
-```markdown
-# Learner Profile
-
-## Background
-
-[Fill in based on initialization conversation — role, experience, goals]
-
-## Tiers completed
-
-| Topic | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
-|-------|--------|--------|--------|--------|
-| Introduction to ML | | | | |
-| Transformers | | | | |
-| Key Foundation Models | | | | |
-| Task Decomposition | | | | |
-| ML in Production | | | | |
-| AI Scaling | | | | |
-| AI Safety | | | | |
-| Introduction to ML — Deeper | | | | |
-| Training and Finetuning | | | | |
-| In-Context Reasoning | | | | |
-| Debate | | | | |
-| Tool Use and Scaffolding | | | | |
-| Honesty, Factuality, and Epistemics | | | | |
-| Science Applications | | | | |
-| Search and Ranking | | | | |
-| Benchmarks | | | | |
-| Datasets | | | | |
-| Uncertainty and Calibration | | | | |
-| Interpretability and Model Editing | | | | |
-| Reinforcement Learning | | | | |
-| Economic and Social Impacts | | | | |
-| Philosophy of Language Models | | | | |
-| World Models and Causality | | | | |
-| Forecasting | | | | |
-| Planning | | | | |
-
-## Recurring strengths
-
-[Populated over time]
-
-## Recurring gaps
-
-[Populated over time]
-
-## Carried-forward open questions
-
-[Populated over time]
-
-## Session log
-
-[Sessions appended here]
-```
-
----
-
-## Relevance file template
-
-Use this when creating `learner/relevance.md` for the first time. Populated with MED defaults — update based on what you learn about the learner during initialization.
-
-```markdown
-# Topic Relevance
-
-Auto-generated with MED defaults. Update ratings based on learner context.
-Ratings: HIGH, MED, LOW
-
-| Topic | Relevance | Notes |
-|-------|-----------|-------|
-| Introduction to ML | MED | |
-| Transformers | MED | |
-| Key Foundation Models | MED | |
-| Task Decomposition | MED | |
-| ML in Production | MED | |
-| AI Scaling | MED | |
-| AI Safety | MED | |
-| Training and Finetuning | MED | |
-| In-Context Reasoning | MED | |
-| Debate | MED | |
-| Tool Use and Scaffolding | MED | |
-| Honesty, Factuality, and Epistemics | MED | |
-| Science Applications | MED | |
-| Search and Ranking | MED | |
-| Benchmarks | MED | |
-| Datasets | MED | |
-| Uncertainty and Calibration | MED | |
-| Interpretability and Model Editing | MED | |
-| Reinforcement Learning | MED | |
-| Economic and Social Impacts | MED | |
-| Philosophy of Language Models | MED | |
-| World Models and Causality | MED | |
-| Forecasting | MED | |
-| Planning | MED | |
-```
+See [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md) for the learner profile template and relevance file template.
 
 ---
 
@@ -255,113 +149,99 @@ learner/
 
 When splitting, update `learner/profile.md` to add a `## Session index` section with links to individual session files. Write new sessions to `learner/sessions/` once that folder exists; otherwise append to `learner/profile.md`.
 
-**To trigger the split:** if `learner/sessions/` does not exist and the session log in `learner/profile.md` contains more than 15 entries, create the folder, move each session log entry to its own file, and update the profile.
-
 ---
 
 ## Session sequence
 
-Work through all sessions at one tier before advancing to the next. Within a tier, follow the order below.
-
-Sessions marked `[HIGH]`, `[MED]`, or `[LOW]` reflect relevance for this learner's context (see `learner/relevance.md`). These labels affect depth, not whether to complete the session — complete all sessions in order.
+Work through all sessions at one tier before advancing to the next. Within a tier, follow the order below. Relevance ratings come from `learner/relevance.md` — they affect depth, not whether to complete the session.
 
 ### Tier 1 — Foundations
 
-| # | File | Topic | Relevance |
-|---|------|-------|-----------|
-| 1 | `prompts/tier1/01-intro-to-ml.md` | Introduction to Machine Learning | MED |
-| 2 | `prompts/tier1/02-transformers.md` | Transformers | MED |
-| 3 | `prompts/tier1/03-key-foundation-models.md` | Key Foundation Model Architectures | MED |
-| 4 | `prompts/tier1/04-task-decomposition.md` | Task Decomposition | HIGH |
-| 5 | `prompts/tier1/05-production-deployment.md` | ML in Production | HIGH |
-| 6 | `prompts/tier1/06-ai-scaling.md` | AI Scaling | MED |
-| 7 | `prompts/tier1/07-ai-safety.md` | AI Safety | MED |
+| # | File | Topic |
+|---|------|-------|
+| 1 | `prompts/tier1/01-intro-to-ml.md` | Introduction to Machine Learning |
+| 2 | `prompts/tier1/02-transformers.md` | Transformers |
+| 3 | `prompts/tier1/03-key-foundation-models.md` | Key Foundation Model Architectures |
+| 4 | `prompts/tier1/04-task-decomposition.md` | Task Decomposition |
+| 5 | `prompts/tier1/05-production-deployment.md` | ML in Production |
+| 6 | `prompts/tier1/06-ai-scaling.md` | AI Scaling |
+| 7 | `prompts/tier1/07-ai-safety.md` | AI Safety |
 
 ### Tier 2 — Breadth
 
-| # | File | Topic | Relevance |
-|---|------|-------|-----------|
-| 8 | `prompts/tier2/01-intro-to-ml.md` | Introduction to ML — Deeper | LOW |
-| 9 | `prompts/tier2/02-transformers.md` | Transformers — Deeper | MED |
-| 10 | `prompts/tier2/03-key-foundation-models.md` | Key Foundation Models — Deeper | MED |
-| 11 | `prompts/tier2/04-training-finetuning.md` | Training and Finetuning | LOW |
-| 12 | `prompts/tier2/05-in-context-reasoning.md` | In-Context Reasoning | HIGH |
-| 13 | `prompts/tier2/06-task-decomposition.md` | Task Decomposition — Deeper | HIGH |
-| 14 | `prompts/tier2/07-debate.md` | Debate | LOW |
-| 15 | `prompts/tier2/08-tool-use-scaffolding.md` | Tool Use and Scaffolding | HIGH |
-| 16 | `prompts/tier2/09-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics | HIGH |
-| 17 | `prompts/tier2/10-science.md` | Science Applications | LOW |
-| 18 | `prompts/tier2/11-search-ranking.md` | Search and Ranking | HIGH |
-| 19 | `prompts/tier2/12-production-deployment.md` | ML in Production — Deeper | HIGH |
-| 20 | `prompts/tier2/13-benchmarks.md` | Benchmarks | MED |
-| 21 | `prompts/tier2/14-datasets.md` | Datasets | LOW |
-| 22 | `prompts/tier2/15-uncertainty-calibration.md` | Uncertainty and Calibration | MED |
-| 23 | `prompts/tier2/16-interpretability-model-editing.md` | Interpretability and Model Editing | LOW |
-| 24 | `prompts/tier2/17-reinforcement-learning.md` | Reinforcement Learning | LOW |
-| 25 | `prompts/tier2/18-ai-scaling.md` | AI Scaling — Deeper | MED |
-| 26 | `prompts/tier2/19-ai-safety.md` | AI Safety — Deeper | MED |
-| 27 | `prompts/tier2/20-economic-social-impacts.md` | Economic and Social Impacts | LOW |
-| 28 | `prompts/tier2/21-philosophy.md` | Philosophy of Language Models | LOW |
+| # | File | Topic |
+|---|------|-------|
+| 8 | `prompts/tier2/01-intro-to-ml.md` | Introduction to ML — Deeper |
+| 9 | `prompts/tier2/02-transformers.md` | Transformers — Deeper |
+| 10 | `prompts/tier2/03-key-foundation-models.md` | Key Foundation Models — Deeper |
+| 11 | `prompts/tier2/04-training-finetuning.md` | Training and Finetuning |
+| 12 | `prompts/tier2/05-in-context-reasoning.md` | In-Context Reasoning |
+| 13 | `prompts/tier2/06-task-decomposition.md` | Task Decomposition — Deeper |
+| 14 | `prompts/tier2/07-debate.md` | Debate |
+| 15 | `prompts/tier2/08-tool-use-scaffolding.md` | Tool Use and Scaffolding |
+| 16 | `prompts/tier2/09-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics |
+| 17 | `prompts/tier2/10-science.md` | Science Applications |
+| 18 | `prompts/tier2/11-search-ranking.md` | Search and Ranking |
+| 19 | `prompts/tier2/12-production-deployment.md` | ML in Production — Deeper |
+| 20 | `prompts/tier2/13-benchmarks.md` | Benchmarks |
+| 21 | `prompts/tier2/14-datasets.md` | Datasets |
+| 22 | `prompts/tier2/15-uncertainty-calibration.md` | Uncertainty and Calibration |
+| 23 | `prompts/tier2/16-interpretability-model-editing.md` | Interpretability and Model Editing |
+| 24 | `prompts/tier2/17-reinforcement-learning.md` | Reinforcement Learning |
+| 25 | `prompts/tier2/18-ai-scaling.md` | AI Scaling — Deeper |
+| 26 | `prompts/tier2/19-ai-safety.md` | AI Safety — Deeper |
+| 27 | `prompts/tier2/20-economic-social-impacts.md` | Economic and Social Impacts |
+| 28 | `prompts/tier2/21-philosophy.md` | Philosophy of Language Models |
 
 ### Tier 3 — Depth
 
-| # | File | Topic | Relevance |
-|---|------|-------|-----------|
-| 29 | `prompts/tier3/01-transformers.md` | Transformers — Research Depth | LOW |
-| 30 | `prompts/tier3/02-key-foundation-models.md` | Key Foundation Models — Research Depth | LOW |
-| 31 | `prompts/tier3/03-training-finetuning.md` | Training and Finetuning — Research Depth | LOW |
-| 32 | `prompts/tier3/04-in-context-reasoning.md` | In-Context Reasoning — Research Depth | HIGH |
-| 33 | `prompts/tier3/05-task-decomposition.md` | Task Decomposition — Research Depth | HIGH |
-| 34 | `prompts/tier3/06-debate.md` | Debate — Research Depth | LOW |
-| 35 | `prompts/tier3/07-tool-use-scaffolding.md` | Tool Use and Scaffolding — Research Depth | HIGH |
-| 36 | `prompts/tier3/08-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics — Research Depth | HIGH |
-| 37 | `prompts/tier3/09-science.md` | Science Applications — Research Depth | LOW |
-| 38 | `prompts/tier3/10-forecasting.md` | Forecasting | LOW |
-| 39 | `prompts/tier3/11-search-ranking.md` | Search and Ranking — Research Depth | HIGH |
-| 40 | `prompts/tier3/12-benchmarks.md` | Benchmarks — Research Depth | MED |
-| 41 | `prompts/tier3/13-datasets.md` | Datasets — Research Depth | LOW |
-| 42 | `prompts/tier3/14-world-models-causality.md` | World Models and Causality | LOW |
-| 43 | `prompts/tier3/15-uncertainty-calibration.md` | Uncertainty and Calibration — Research Depth | MED |
-| 44 | `prompts/tier3/16-interpretability-model-editing.md` | Interpretability and Model Editing — Research Depth | LOW |
-| 45 | `prompts/tier3/17-reinforcement-learning.md` | Reinforcement Learning — Research Depth | LOW |
-| 46 | `prompts/tier3/18-ai-scaling.md` | AI Scaling — Research Depth | MED |
-| 47 | `prompts/tier3/19-ai-safety.md` | AI Safety — Research Depth | HIGH |
-| 48 | `prompts/tier3/20-economic-social-impacts.md` | Economic and Social Impacts — Research Depth | LOW |
+| # | File | Topic |
+|---|------|-------|
+| 29 | `prompts/tier3/01-transformers.md` | Transformers — Research Depth |
+| 30 | `prompts/tier3/02-key-foundation-models.md` | Key Foundation Models — Research Depth |
+| 31 | `prompts/tier3/03-training-finetuning.md` | Training and Finetuning — Research Depth |
+| 32 | `prompts/tier3/04-in-context-reasoning.md` | In-Context Reasoning — Research Depth |
+| 33 | `prompts/tier3/05-task-decomposition.md` | Task Decomposition — Research Depth |
+| 34 | `prompts/tier3/06-debate.md` | Debate — Research Depth |
+| 35 | `prompts/tier3/07-tool-use-scaffolding.md` | Tool Use and Scaffolding — Research Depth |
+| 36 | `prompts/tier3/08-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics — Research Depth |
+| 37 | `prompts/tier3/09-science.md` | Science Applications — Research Depth |
+| 38 | `prompts/tier3/10-forecasting.md` | Forecasting |
+| 39 | `prompts/tier3/11-search-ranking.md` | Search and Ranking — Research Depth |
+| 40 | `prompts/tier3/12-benchmarks.md` | Benchmarks — Research Depth |
+| 41 | `prompts/tier3/13-datasets.md` | Datasets — Research Depth |
+| 42 | `prompts/tier3/14-world-models-causality.md` | World Models and Causality |
+| 43 | `prompts/tier3/15-uncertainty-calibration.md` | Uncertainty and Calibration — Research Depth |
+| 44 | `prompts/tier3/16-interpretability-model-editing.md` | Interpretability and Model Editing — Research Depth |
+| 45 | `prompts/tier3/17-reinforcement-learning.md` | Reinforcement Learning — Research Depth |
+| 46 | `prompts/tier3/18-ai-scaling.md` | AI Scaling — Research Depth |
+| 47 | `prompts/tier3/19-ai-safety.md` | AI Safety — Research Depth |
+| 48 | `prompts/tier3/20-economic-social-impacts.md` | Economic and Social Impacts — Research Depth |
 
 ### Tier 4+ — Specialist (optional)
 
-| # | File | Topic | Relevance |
-|---|------|-------|-----------|
-| 49 | `prompts/tier4/01-transformers.md` | Transformers — Specialist | LOW |
-| 50 | `prompts/tier4/02-key-foundation-models.md` | Key Foundation Models — Specialist | LOW |
-| 51 | `prompts/tier4/03-training-finetuning.md` | Training and Finetuning — Specialist | LOW |
-| 52 | `prompts/tier4/04-in-context-reasoning.md` | In-Context Reasoning — Specialist | MED |
-| 53 | `prompts/tier4/05-task-decomposition.md` | Task Decomposition — Specialist | HIGH |
-| 54 | `prompts/tier4/06-debate.md` | Debate — Specialist | LOW |
-| 55 | `prompts/tier4/07-tool-use-scaffolding.md` | Tool Use and Scaffolding — Specialist | HIGH |
-| 56 | `prompts/tier4/08-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics — Specialist | HIGH |
-| 57 | `prompts/tier4/09-science.md` | Science Applications — Specialist | LOW |
-| 58 | `prompts/tier4/10-forecasting.md` | Forecasting — Specialist | LOW |
-| 59 | `prompts/tier4/11-search-ranking.md` | Search and Ranking — Specialist | HIGH |
-| 60 | `prompts/tier4/12-benchmarks.md` | Benchmarks — Specialist | LOW |
-| 61 | `prompts/tier4/13-world-models-causality.md` | World Models and Causality — Specialist | LOW |
-| 62 | `prompts/tier4/14-planning.md` | Planning — Specialist | MED |
-| 63 | `prompts/tier4/15-uncertainty-calibration.md` | Uncertainty and Calibration — Specialist | MED |
-| 64 | `prompts/tier4/16-interpretability-model-editing.md` | Interpretability and Model Editing — Specialist | LOW |
-| 65 | `prompts/tier4/17-reinforcement-learning.md` | Reinforcement Learning — Specialist | LOW |
-| 66 | `prompts/tier4/18-ai-scaling.md` | AI Scaling — Specialist | LOW |
-| 67 | `prompts/tier4/19-ai-safety.md` | AI Safety — Specialist | MED |
-| 68 | `prompts/tier4/20-economic-social-impacts.md` | Economic and Social Impacts — Specialist | LOW |
-| 69 | `prompts/tier4/21-philosophy.md` | Philosophy — Specialist | LOW |
+| # | File | Topic |
+|---|------|-------|
+| 49 | `prompts/tier4/01-transformers.md` | Transformers — Specialist |
+| 50 | `prompts/tier4/02-key-foundation-models.md` | Key Foundation Models — Specialist |
+| 51 | `prompts/tier4/03-training-finetuning.md` | Training and Finetuning — Specialist |
+| 52 | `prompts/tier4/04-in-context-reasoning.md` | In-Context Reasoning — Specialist |
+| 53 | `prompts/tier4/05-task-decomposition.md` | Task Decomposition — Specialist |
+| 54 | `prompts/tier4/06-debate.md` | Debate — Specialist |
+| 55 | `prompts/tier4/07-tool-use-scaffolding.md` | Tool Use and Scaffolding — Specialist |
+| 56 | `prompts/tier4/08-honesty-factuality-epistemics.md` | Honesty, Factuality, and Epistemics — Specialist |
+| 57 | `prompts/tier4/09-science.md` | Science Applications — Specialist |
+| 58 | `prompts/tier4/10-forecasting.md` | Forecasting — Specialist |
+| 59 | `prompts/tier4/11-search-ranking.md` | Search and Ranking — Specialist |
+| 60 | `prompts/tier4/12-benchmarks.md` | Benchmarks — Specialist |
+| 61 | `prompts/tier4/13-world-models-causality.md` | World Models and Causality — Specialist |
+| 62 | `prompts/tier4/14-planning.md` | Planning — Specialist |
+| 63 | `prompts/tier4/15-uncertainty-calibration.md` | Uncertainty and Calibration — Specialist |
+| 64 | `prompts/tier4/16-interpretability-model-editing.md` | Interpretability and Model Editing — Specialist |
+| 65 | `prompts/tier4/17-reinforcement-learning.md` | Reinforcement Learning — Specialist |
+| 66 | `prompts/tier4/18-ai-scaling.md` | AI Scaling — Specialist |
+| 67 | `prompts/tier4/19-ai-safety.md` | AI Safety — Specialist |
+| 68 | `prompts/tier4/20-economic-social-impacts.md` | Economic and Social Impacts — Specialist |
+| 69 | `prompts/tier4/21-philosophy.md` | Philosophy — Specialist |
 
----
 
-## How the tiers-completed table maps to session numbers
-
-The `Tiers completed` table in `learner-profile.md` uses topic names that match the session sequence above. To find the next session:
-
-1. Find the last completed session in the table (read across tiers in order)
-2. The next session is the immediately following row in the sequence above
-3. If no sessions are completed, start with session 1
-
-When updating `learner-profile.md` after a session, add the topic name to the `Tiers completed` table in the row for the appropriate tier, with the date.

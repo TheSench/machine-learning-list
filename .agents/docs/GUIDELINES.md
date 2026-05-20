@@ -14,7 +14,7 @@
 
 ## Session commit format
 
-Always use this exact format — no variations:
+Use exact format — no variations:
 
 ```
 Session log: [Topic] — Tier [N] (YYYY-MM-DD)
@@ -26,11 +26,11 @@ Examples:
 
 ## Curriculum content (read-only to agents)
 
-`prompts/`, `TUTORIAL.md`, and `README.md` define the learning contract. Agents must not modify these files. Any change requires a human author and goes through PR review.
+`prompts/`, `TUTORIAL.md`, `README.md` define learning contract. Agents must not modify. Changes require human author + PR review.
 
 ## Anti-patterns
 
-- **Do not** invent session topics not listed in TUTORIAL.md's session sequence
-- **Do not** skip the git commit step — learner progress is only durable once committed
-- **Do not** modify `learner/relevance.md` during a session without noting the change in the session log
-- **Do not** create new files in `learner/` beyond the documented structure (`profile.md`, `relevance.md`, `sessions/`)
+- **Do not** invent session topics not in TUTORIAL.md session sequence
+- **Do not** skip git commit — progress only durable once committed
+- **Do not** modify `learner/relevance.md` during session without noting change in session log
+- **Do not** create new files in `learner/` beyond documented structure (`profile.md`, `relevance.md`, `sessions/`)

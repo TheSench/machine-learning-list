@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo is a static markdown curriculum paired with an agent-driven tutorial protocol. There is no running service, no API, and no external dependencies. All state lives in files.
+Static markdown curriculum + agent-driven tutorial protocol. No running service, no API, no external deps. All state in files.
 
 ## Module map
 
@@ -38,10 +38,10 @@ User sends "Start" or "Continue"
 
 ## Key design decisions
 
-**State in files, not memory** — learner progress is written to `learner/profile.md` and committed after each session so it survives across Claude Code conversation windows.
+**State in files, not memory** — progress written to `learner/profile.md` and committed after each session; survives across Claude Code windows.
 
-**Curriculum is read-only to agents** — `prompts/`, `.agents/TUTORIAL.md`, and `README.md` define the learning contract. Only humans may change them.
+**Curriculum read-only to agents** — `prompts/`, `.agents/TUTORIAL.md`, `README.md` define learning contract. Only humans may change.
 
-**Relevance-driven depth** — `learner/relevance.md` lets the agent adapt session depth without changing the curriculum content.
+**Relevance-driven depth** — `learner/relevance.md` lets agent adapt depth without changing curriculum.
 
-**Session splitting** — once the session log exceeds ~15 entries, individual sessions move to `learner/sessions/` to keep `profile.md` readable.
+**Session splitting** — once session log exceeds ~15 entries, move individual sessions to `learner/sessions/` to keep `profile.md` readable.

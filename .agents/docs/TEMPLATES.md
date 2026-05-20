@@ -2,7 +2,7 @@
 
 ## Learner profile template
 
-Use this when creating `learner/profile.md` for the first time:
+Use when creating `learner/profile.md` for first time:
 
 ```markdown
 # Learner Profile
@@ -62,7 +62,7 @@ Use this when creating `learner/profile.md` for the first time:
 
 ## Relevance file template
 
-Use this when creating `learner/relevance.md` for the first time. Populated with MED defaults — update based on what you learn about the learner during initialization.
+Use when creating `learner/relevance.md` for first time. Populated with MED defaults — update based on learner's initialization answers.
 
 ```markdown
 # Topic Relevance

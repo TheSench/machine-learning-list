@@ -8,38 +8,37 @@
 
 ### Step 1 — Load context (do this silently, without narrating)
 
-Attempt to read both files:
+Read both files:
 - `learner/profile.md`
 - `learner/relevance.md`
 
-**If either file is missing (read returns an error or empty result), treat that as a first-time learner:**
-
+On missing file (error or empty result), treat as first-time learner:
 - Missing `learner/profile.md` → no sessions completed, no background known. Proceed to [initialization](#initialization) instead of Steps 2–3.
-- Missing `learner/relevance.md` → treat all topics as MED relevance until the file is created.
+- Missing `learner/relevance.md` → treat all topics as MED until file created.
 
-Do not check for file existence before reading. Just attempt the read and branch on the result.
+Attempt read and branch on result; don't check existence first.
 
 ### Initialization
 
-Run this flow only when `learner/profile.md` does not exist (first session ever).
+Run only when `learner/profile.md` doesn't exist (first session ever).
 
-1. Ask the learner a few short questions to establish their background:
+1. Ask learner short background questions:
    - What's your professional background? (e.g. software engineering, product, research)
    - How much have you worked with ML systems hands-on?
    - Is there a particular area of ML you're most curious about or will use most?
-2. Based on their answers, create `learner/profile.md` using the template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md).
-3. If `learner/relevance.md` also doesn't exist, create it using the relevance file template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md), populated with MED for all topics (the default). Note in the file that it was auto-generated and can be customized.
-4. Then proceed to Step 2 as normal (start with session 1).
+2. Create `learner/profile.md` using template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md).
+3. If `learner/relevance.md` also missing, create it using relevance file template in [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md) with MED for all topics. Note it was auto-generated and can be customized.
+4. Proceed to Step 2 (start session 1).
 
 ### Step 2 — Determine next session
 
-Using the `Tiers completed` table in the learner profile and the [Session Sequence](#session-sequence) below, identify:
-- The last completed session (topic name + tier)
-- The next session in sequence (file path + topic + relevance rating)
+Using `Tiers completed` table in learner profile + [Session Sequence](#session-sequence), identify:
+- Last completed session (topic + tier)
+- Next session (file path + topic + relevance rating)
 
 ### Step 3 — Show progress summary and begin
 
-Show the user a brief progress summary, then immediately start the next session without waiting for confirmation.
+Show brief progress summary, then immediately start next session without waiting for confirmation.
 
 **Progress summary format:**
 
@@ -53,14 +52,13 @@ Last completed: [Topic] — Tier [N] ([date])
 
 ### Step 4 — Run the session
 
-For the next session in sequence:
-1. Load the prompt file for that session from `prompts/`
-2. Run the session
-3. Apply depth calibration from `learner/relevance.md` for the topic
+1. Load prompt file from `prompts/`
+2. Run session
+3. Apply depth calibration from `learner/relevance.md` for topic
 
 ### Step 5 — Update the learner profile
 
-At the end of the session, update `learner/profile.md`. Add a new entry under `## Session log`:
+Update `learner/profile.md`. Add entry under `## Session log`:
 
 ```markdown
 ### [Topic] — Tier [N] · [YYYY-MM-DD]
@@ -76,31 +74,31 @@ At the end of the session, update `learner/profile.md`. Add a new entry under `#
 **Notes:** [Anything else relevant: learning style observations, areas of strong interest, analogies that landed well]
 ```
 
-Also update the top-level sections of the profile if you learned something new about the learner's background or preferences. Do not ask for permission — just write the file.
+Update top-level profile sections if learner background or preferences were revealed. Don't ask for permission — just write the file.
 
 #### Post-session follow-up questions
 
-If the learner asks follow-up questions after the session ends, answer them normally. Then evaluate whether the exchange revealed anything worth tracking:
+Answer follow-up questions normally. Evaluate if exchange revealed anything worth tracking:
 
-- A gap that was resolved → update **Gaps / needs reinforcement** or note it resolved
-- A new open question → add to **Open questions** or **Carried-forward open questions**
-- A concept understood more deeply than the session revealed → note under **Strengths**
-- Anything else illuminating about how the learner thinks → add as an **Extended discussion** paragraph in the session log entry
+- Gap resolved → update **Gaps / needs reinforcement**
+- New open question → add to **Open questions** or **Carried-forward open questions**
+- Concept grasped more deeply → note under **Strengths**
+- Illuminating observation → add **Extended discussion** paragraph in session log
 
-If nothing new was revealed, no update is needed. Only write the file if there's something worth carrying forward.
+Only write file if something worth carrying forward.
 
-After writing the file, commit the changes:
+Commit changes:
 
 ```
 git add learner/profile.md learner/relevance.md
 git commit -m "Session log: [Topic] — Tier [N] ([YYYY-MM-DD])"
 ```
 
-Only stage and commit files that were actually modified. Do not ask for permission — just commit.
+Only stage modified files. Don't ask — just commit.
 
 ### Step 6 — Prompt to start the next session
 
-After saving progress, display exactly the content inside `<closing_message>` and nothing after it. Do not include the `<closing_message>` tags in the response.
+After saving progress, display exactly content inside `<closing_message>`, nothing after. Don't include `<closing_message>` tags.
 
 <closing_message>
 Session saved. To continue, open a new conversation and send:
@@ -110,33 +108,33 @@ Continue
 ```
 </closing_message>
 
-Only `Continue` should be inside the code block so the learner can copy and paste just the prompt directly.
+Only `Continue` inside code block so learner can copy-paste directly.
 
 ---
 
 ## Depth calibration
 
-Calibrate on two axes before starting a session:
+Calibrate on two axes before session:
 
-**Learner history** (`learner/profile.md`): skip mastered concepts, dwell on gaps, connect new material to prior strengths, surface open questions, match preferred explanation style. If the profile has no session log yet, check background for any stated strengths/gaps.
+**Learner history** (`learner/profile.md`): skip mastered concepts, dwell on gaps, connect to prior strengths, surface open questions, match explanation style. If no session log yet, check background for stated strengths/gaps.
 
-**Topic relevance** (`learner/relevance.md`): HIGH → go deeper than the prompt default, focus on production implications; MED → follow the prompt as written; LOW → cover core concepts only, compress peripheral details, note what was skipped.
+**Topic relevance** (`learner/relevance.md`): HIGH → go deeper, focus on production implications; MED → follow prompt as written; LOW → core concepts only, compress peripheral details, note what was skipped.
 
 ---
 
 ## Templates
 
-See [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md) for the learner profile template and relevance file template.
+See [`.agents/docs/TEMPLATES.md`](.agents/docs/TEMPLATES.md) for learner profile template and relevance file template.
 
 ---
 
 ## Progress tracking
 
-Progress is stored in `learner/profile.md`. The `Tiers completed` table is the canonical record of what has been completed. A session is complete when its session log entry has been written.
+Progress stored in `learner/profile.md`. `Tiers completed` table is canonical record. Session complete when session log entry written.
 
 ### Learner profile folder structure
 
-The learner profile starts as a single file. When the session log grows beyond ~15 sessions, split it:
+Profile starts as single file. When session log exceeds ~15 sessions, split it:
 
 ```
 learner/
@@ -147,13 +145,13 @@ learner/
     ...
 ```
 
-When splitting, update `learner/profile.md` to add a `## Session index` section with links to individual session files. Write new sessions to `learner/sessions/` once that folder exists; otherwise append to `learner/profile.md`.
+When splitting, update `learner/profile.md` to add `## Session index` with links to session files. Write new sessions to `learner/sessions/` once folder exists; otherwise append to `learner/profile.md`.
 
 ---
 
 ## Session sequence
 
-Work through all sessions at one tier before advancing to the next. Within a tier, follow the order below. Relevance ratings come from `learner/relevance.md` — they affect depth, not whether to complete the session.
+Complete all sessions at one tier before advancing. Within tier, follow order below. Relevance from `learner/relevance.md` affects depth, not whether to complete.
 
 ### Tier 1 — Foundations
 
@@ -243,5 +241,3 @@ Work through all sessions at one tier before advancing to the next. Within a tie
 | 67 | `prompts/tier4/19-ai-safety.md` | AI Safety — Specialist |
 | 68 | `prompts/tier4/20-economic-social-impacts.md` | Economic and Social Impacts — Specialist |
 | 69 | `prompts/tier4/21-philosophy.md` | Philosophy — Specialist |
-
-

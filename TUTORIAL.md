@@ -59,6 +59,17 @@ At the end of the session, update `learner/profile.md`. Add a new entry under `#
 
 Also update the top-level sections of the profile if you learned something new about the learner's background or preferences. Do not ask for permission — just write the file.
 
+#### Post-session follow-up questions
+
+If the learner asks follow-up questions after the session ends, answer them normally. Then evaluate whether the exchange revealed anything worth tracking:
+
+- A gap that was resolved → update **Gaps / needs reinforcement** or note it resolved
+- A new open question → add to **Open questions** or **Carried-forward open questions**
+- A concept understood more deeply than the session revealed → note under **Strengths**
+- Anything else illuminating about how the learner thinks → add as an **Extended discussion** paragraph in the session log entry
+
+If nothing new was revealed, no update is needed. Only write the file if there's something worth carrying forward.
+
 After writing the file, commit the changes:
 
 ```

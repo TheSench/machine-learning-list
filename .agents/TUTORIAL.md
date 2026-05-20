@@ -95,14 +95,14 @@ After updating `learner/profile.md`, regenerate `learner/progress.md` to reflect
 
 Count total sessions by summing entries in the `Tiers completed` table.
 
-**Overview chart** (`xychart-beta`): bar chart with four bars — one per tier — showing how many sessions are complete in each. Tier totals are always 7 / 21 / 20 / 21.
+**Overview chart** (`xychart-beta`): bar chart with four bars — one per tier — showing percentage complete. Tier totals are always 7 / 21 / 20 / 21. Round to nearest integer.
 
 ```
 xychart-beta
-    title "Sessions Completed by Tier"
-    x-axis ["Tier 1 (7)", "Tier 2 (21)", "Tier 3 (20)", "Tier 4 (21)"]
-    y-axis "Sessions" 0 --> 21
-    bar [<t1_done>, <t2_done>, <t3_done>, <t4_done>]
+    title "% Complete by Tier"
+    x-axis ["Tier 1", "Tier 2", "Tier 3", "Tier 4"]
+    y-axis "% Complete" 0 --> 100
+    bar [<t1_pct>, <t2_pct>, <t3_pct>, <t4_pct>]
 ```
 
 **Current tier chart** (`graph LR`): show all sessions in the active tier (the lowest tier not yet fully complete) as a linear chain of nodes. Use these classes:

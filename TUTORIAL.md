@@ -8,9 +8,28 @@
 
 ### Step 1 — Load context (do this silently, without narrating)
 
-Read both files before saying anything to the user:
+Attempt to read both files:
 - `learner/profile.md`
 - `learner/relevance.md`
+
+**If either file is missing (read returns an error or empty result), treat that as a first-time learner:**
+
+- Missing `learner/profile.md` → no sessions completed, no background known. Proceed to [initialization](#initialization) instead of Steps 2–3.
+- Missing `learner/relevance.md` → treat all topics as MED relevance until the file is created.
+
+Do not check for file existence before reading. Just attempt the read and branch on the result.
+
+### Initialization
+
+Run this flow only when `learner/profile.md` does not exist (first session ever).
+
+1. Ask the learner a few short questions to establish their background:
+   - What's your professional background? (e.g. software engineering, product, research)
+   - How much have you worked with ML systems hands-on?
+   - Is there a particular area of ML you're most curious about or will use most?
+2. Based on their answers, create `learner/profile.md` using the template in [Learner profile template](#learner-profile-template).
+3. If `learner/relevance.md` also doesn't exist, create it using the template in [Relevance file template](#relevance-file-template), populated with MED for all topics (the default). Note in the file that it was auto-generated and can be customized.
+4. Then proceed to Step 2 as normal (start with session 1).
 
 ### Step 2 — Determine next session
 
@@ -107,13 +126,113 @@ Before starting a session, calibrate on two axes:
 - **Pick up open questions** if they are relevant to today's topic
 - **Match their preferred explanation style** if it has been recorded
 
-If the profile is empty or this is the first session, ask the learner directly about their background before proceeding.
+If the profile is empty (file read succeeded but no session log entries exist), treat it as a near-first session: the background section should already be populated from initialization, but check for any prior strengths/gaps before diving in.
 
 ### Topic relevance (from `learner/relevance.md`)
 
 - **High relevance** — go deeper than the prompt file's default. Spend extra time on production implications. Ask follow-up questions that tie the material to building agentic systems.
 - **Medium relevance** — follow the prompt file as written. Connect concepts to the learner's context where natural.
 - **Low relevance** — cover the core concepts at a lighter pace. Compress or skip peripheral details. Make note of what is being skipped and why, so the learner can return if their context changes.
+
+---
+
+## Learner profile template
+
+Use this when creating `learner/profile.md` for the first time:
+
+```markdown
+# Learner Profile
+
+## Background
+
+[Fill in based on initialization conversation — role, experience, goals]
+
+## Tiers completed
+
+| Topic | Tier 1 | Tier 2 | Tier 3 | Tier 4 |
+|-------|--------|--------|--------|--------|
+| Introduction to ML | | | | |
+| Transformers | | | | |
+| Key Foundation Models | | | | |
+| Task Decomposition | | | | |
+| ML in Production | | | | |
+| AI Scaling | | | | |
+| AI Safety | | | | |
+| Introduction to ML — Deeper | | | | |
+| Training and Finetuning | | | | |
+| In-Context Reasoning | | | | |
+| Debate | | | | |
+| Tool Use and Scaffolding | | | | |
+| Honesty, Factuality, and Epistemics | | | | |
+| Science Applications | | | | |
+| Search and Ranking | | | | |
+| Benchmarks | | | | |
+| Datasets | | | | |
+| Uncertainty and Calibration | | | | |
+| Interpretability and Model Editing | | | | |
+| Reinforcement Learning | | | | |
+| Economic and Social Impacts | | | | |
+| Philosophy of Language Models | | | | |
+| World Models and Causality | | | | |
+| Forecasting | | | | |
+| Planning | | | | |
+
+## Recurring strengths
+
+[Populated over time]
+
+## Recurring gaps
+
+[Populated over time]
+
+## Carried-forward open questions
+
+[Populated over time]
+
+## Session log
+
+[Sessions appended here]
+```
+
+---
+
+## Relevance file template
+
+Use this when creating `learner/relevance.md` for the first time. Populated with MED defaults — update based on what you learn about the learner during initialization.
+
+```markdown
+# Topic Relevance
+
+Auto-generated with MED defaults. Update ratings based on learner context.
+Ratings: HIGH, MED, LOW
+
+| Topic | Relevance | Notes |
+|-------|-----------|-------|
+| Introduction to ML | MED | |
+| Transformers | MED | |
+| Key Foundation Models | MED | |
+| Task Decomposition | MED | |
+| ML in Production | MED | |
+| AI Scaling | MED | |
+| AI Safety | MED | |
+| Training and Finetuning | MED | |
+| In-Context Reasoning | MED | |
+| Debate | MED | |
+| Tool Use and Scaffolding | MED | |
+| Honesty, Factuality, and Epistemics | MED | |
+| Science Applications | MED | |
+| Search and Ranking | MED | |
+| Benchmarks | MED | |
+| Datasets | MED | |
+| Uncertainty and Calibration | MED | |
+| Interpretability and Model Editing | MED | |
+| Reinforcement Learning | MED | |
+| Economic and Social Impacts | MED | |
+| Philosophy of Language Models | MED | |
+| World Models and Causality | MED | |
+| Forecasting | MED | |
+| Planning | MED | |
+```
 
 ---
 

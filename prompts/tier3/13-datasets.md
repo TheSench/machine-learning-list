@@ -20,17 +20,18 @@ I have completed all Tier 1 and Tier 2 sessions from this reading list. That mea
 - Scaling laws, Chinchilla, and the AI compute trajectory
 - AI safety framing: misuse, misalignment, structural risks, inner/outer alignment
 
-I understand that large language models are trained on web-scraped text, and I know about Common Crawl and The Pile as major sources. I understand that data quality matters and that deduplication is important. I have not studied FineWeb's specific curation pipeline, dialog inpainting, or MS MARCO's influence on information retrieval research in depth.
+I understand that large language models are trained on web-scraped text, and I know about Common Crawl and The Pile as major sources. I understand that data quality matters and that deduplication is important. I have not studied FineWeb's specific curation pipeline, dialog inpainting, MS MARCO's influence on information retrieval research, or Microsoft Academic Graph's role in academic knowledge graphs in depth.
 
 ## Session focus
 
-Tier 3 examines the engineering and research decisions behind high-quality training datasets: how FineWeb's systematic ablation of quality filters reveals what actually matters in web data curation, how dialog inpainting converts document corpora into instruction-following training data, and the influence of MS MARCO on both retrieval research and the development of dense embedding models.
+Tier 3 examines the engineering and research decisions behind high-quality training datasets: how FineWeb's systematic ablation of quality filters reveals what actually matters in web data curation, how dialog inpainting converts document corpora into instruction-following training data, the influence of MS MARCO on both retrieval research and the development of dense embedding models, and Microsoft Academic Graph as a structured knowledge resource for scientific literature.
 
 ## Resources for this session
 
 - "FineWeb: Decanting the Web for the Finest Text Data at Scale" (Penedo et al., HuggingFace, 2024)
 - "Dialog Inpainting: Turning Documents into Dialogs" (Dai et al., 2022)
 - "MS MARCO: A Human Generated MAchine Reading COmprehension Dataset" (Nguyen et al., Microsoft, 2016)
+- "Microsoft Academic Graph" (Wang et al., Microsoft Research, 2020)
 
 ## Teaching objectives
 
@@ -39,6 +40,7 @@ By the end of this session I should be able to:
 - Explain the key finding from FineWeb's educational content classifier: that a relatively simple classifier trained to identify "educational" web pages, when used to upsample high-quality content, produces measurable improvements on reasoning benchmarks — and why this is surprising given that the classifier is imperfect
 - Explain dialog inpainting: how existing documents (articles, books, papers) are transformed into question-answer dialog format using a model to "inpaint" missing turns — what kinds of instruction-following data this produces and where it is useful
 - Explain MS MARCO: the scale and construction (real Bing search queries with human-written answers), why it was influential for training and evaluating IR systems, and its role in enabling the dense retrieval research that made RAG practical
+- Explain Microsoft Academic Graph (MAG): the scale and structure (hundreds of millions of papers, citations, authors, venues as a heterogeneous knowledge graph), what kinds of research it enables (citation analysis, field-level trend detection, semantic scholarly search), and why structured academic metadata complements unstructured web-scraped text for scientific NLP
 - Synthesize the data quality vs. quantity tradeoff: articulate when curation beats raw scale, what Chinchilla and FineWeb together imply about the current importance of data quality, and what the limits of quality filtering are
 
 ## How to run this session

@@ -24,7 +24,7 @@ I understand RAG and retrieval-augmented systems; I have a general sense that LL
 
 ## Session focus
 
-Tier 3 examines four concrete empirical studies on LLMs applied to science: a multi-agent system designed for scientific hypothesis generation, a systematic evaluation of LLM paper review quality, clinical knowledge encoding and medical examination performance, and a broad survey of GPT-4 applied to scientific discovery tasks — with honest accounting of where the results are impressive and where they fall short.
+Tier 3 examines five concrete empirical studies on LLMs applied to science: a multi-agent system designed for scientific hypothesis generation, a systematic evaluation of LLM paper review quality, clinical knowledge encoding and medical examination performance, a benchmark for information-seeking QA over scientific papers, and a broad survey of GPT-4 applied to scientific discovery tasks — with honest accounting of where the results are impressive and where they fall short.
 
 ## Resources for this session
 
@@ -32,6 +32,7 @@ Tier 3 examines four concrete empirical studies on LLMs applied to science: a mu
 - "Can large language models provide useful feedback on research papers? A large-scale empirical analysis" (Liang et al., 2023)
 - "Large Language Models Encode Clinical Knowledge" (Singhal et al., Google, 2022)
 - "The Impact of Large Language Models on Scientific Discovery: a Preliminary Study using GPT-4" (Microsoft Research, 2023)
+- "A Dataset of Information-Seeking Questions and Answers Anchored in Research Papers" (Dasigi et al., AllenAI, 2021)
 
 ## Teaching objectives
 
@@ -40,6 +41,7 @@ By the end of this session I should be able to:
 - Explain the paper review evaluation: the methodology used to compare LLM-generated feedback to human reviewer feedback at scale, where the two converge (surface-level errors, basic inconsistency detection) and where they diverge (deep domain expertise, novelty assessment)
 - Explain the clinical knowledge encoding result: how Med-PaLM was trained and evaluated on USMLE-style questions, what "passing" the exam means and doesn't mean, and the gap between benchmark performance and clinical reliability
 - Synthesize the current picture from the Microsoft survey: identify at least three scientific task categories where LLMs appear to genuinely accelerate work, and at least two where they confidently produce plausible-sounding hallucinations that domain experts catch
+- Explain the QASPER dataset (Dasigi et al.): how it constructs information-seeking questions from NLP paper abstracts and what kinds of answering challenges it reveals — including questions that require evidence extraction, abstractive summarization, or unanswerable determination across the full paper body
 - Evaluate what kinds of scientific tasks play to LLMs' strengths (synthesis, literature connection, hypothesis generation across domains) vs. tasks requiring deep formal reasoning or experimental grounding
 
 ## How to run this session

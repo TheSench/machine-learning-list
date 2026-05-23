@@ -25,7 +25,7 @@ This session moves from the abstract principle of task decomposition to concrete
 - "Factored cognition" (Ought research post, 2019)
 - "Iterated Distillation and Amplification" (Christiano, AI Alignment Forum, 2018)
 - "Recursively Summarizing Books with Human Feedback" (Wu et al., OpenAI, 2021)
-- "Let's Verify Step by Step" (Lightman et al., OpenAI, 2023)
+- "Solving math word problems with process-based and outcome-based feedback" (Uesato et al., DeepMind, 2022)
 
 ## Teaching objectives
 
@@ -34,7 +34,7 @@ By the end of this session I should be able to:
 - Explain factored cognition: the strategy of decomposing a task into independent subtasks whose correctness can each be verified separately, and why verifiability of subtasks is the key property that makes human oversight tractable
 - Explain the IDA training loop in detail: amplify (a human uses AI assistance to decompose a hard task and answer subtasks) → distill (train the model to match the amplified human's answers) → repeat with the improved model as the assistant
 - Explain how recursive summarization works in practice: the model summarizes small chunks, then summarizes summaries, building a hierarchical structure that circumvents context length limits — and what failure modes emerge at each level
-- Explain the key empirical finding from Lightman et al.: process reward models (PRMs) that score each reasoning step outperform outcome reward models (ORMs) that score only the final answer on multi-step math, and why this result supports the case for decomposition-based supervision
+- Explain the key empirical finding from Uesato et al.: process reward models (PRMs) that score each reasoning step outperform outcome reward models (ORMs) that score only the final answer on multi-step math, and why this result supports the case for decomposition-based supervision
 
 ## How to run this session
 

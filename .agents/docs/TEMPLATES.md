@@ -41,6 +41,12 @@ Use when creating `learner/profile.md` for first time:
 | Forecasting | | | | |
 | Planning | | | | |
 
+## Side tracks completed
+
+| Track | Sessions completed |
+|-------|--------------------|
+| *(populated after side-track sessions — see `prompts/special/index.md`)* | |
+
 ## Topic mastery
 
 | Topic | Score | Last assessed |

@@ -8,9 +8,10 @@
 
 ### Step 1 — Load context (do this silently, without narrating)
 
-Read both files:
+Read these files:
 - `learner/profile.md`
 - `learner/relevance.md`
+- `prompts/special/index.md` (side-track registry — see [Side tracks](#side-tracks))
 
 On missing file (error or empty result), treat as first-time learner:
 - Missing `learner/profile.md` → no sessions completed, no background known. Proceed to [initialization](#initialization) instead of Steps 2–3.
@@ -50,7 +51,11 @@ Last completed: [Topic] — Tier [N] ([date])
 
 **Starting:** [Topic] — Tier [N] ([HIGH / MED / LOW] relevance)
 [One sentence on what this session covers and why it matters for this learner's context.]
+
+**Side tracks pending:** [Track] ([done] of [total]), [Track] ([done] of [total]) — say "side track" to start one.
 ```
+
+Omit the side-tracks line when no track is pending.
 
 ### Step 4 — Run the session
 
@@ -149,7 +154,7 @@ Only write file if something worth carrying forward.
 
 #### Update progress chart
 
-After updating `learner/profile.md`, regenerate `learner/progress.md` to reflect the new session count. The file has two sections:
+After updating `learner/profile.md`, regenerate `learner/progress.md` to reflect the new session count. The file has three sections:
 
 **Header:** `**[N] of 69 sessions complete** · Updated [YYYY-MM-DD]`
 
@@ -174,6 +179,8 @@ xychart-beta
 Node IDs: `T<tier>_<position>` (e.g., `T2_5`). Labels: short topic name (2 lines max). Connect all nodes left-to-right with `-->`.
 
 If Tier 4 is complete, replace the current tier chart with a completion message.
+
+**Side tracks** (`## Side tracks` section, last in the file): one bullet per track in `prompts/special/index.md` — `- [Track]: [done] of [total] (next: [Session])`, or `- [Track]: complete`.
 
 The session order within each tier follows the [Session sequence](#session-sequence) table.
 
@@ -243,6 +250,35 @@ learner/
 ```
 
 When splitting, update `learner/profile.md` to add `## Session index` with links to session files. Write new sessions to `learner/sessions/` once folder exists; otherwise append to `learner/profile.md`.
+
+---
+
+## Side tracks
+
+Optional session groups registered in `prompts/special/index.md`. They never count toward the 69 sessions, the `Tiers completed` table, or the session number used by the review queue.
+
+**Pending:** a track is pending while any of its sessions is missing from `## Side tracks completed` in `learner/profile.md` (no such section → nothing completed). Its next session is the lowest-numbered one not yet listed.
+
+**Surfacing:** pending tracks appear as one line in the Step 3 progress summary. That line is a reminder only; Start/Continue still runs the next curriculum or review session.
+
+**Starting one:** when the learner says "side track" or a close variant, run Step 1, then list each pending track — name, `[done] of [total]`, next session, and its `About` line — and ask which to run. If the learner names a track ("side track harness design"), skip the list. A due review session doesn't block a side track the learner asked for; it stays due for the next Continue.
+
+**Running:** Step 4 as usual, loading the session file from the registry. Treat relevance as MED unless `learner/relevance.md` rates the track.
+
+**Saving** — Step 5 as usual, with these differences:
+
+- Session log goes to `learner/sessions/side-<tag>-<NN>-<slug>.md` (tag lowercased, e.g. `side-hd-01-context-as-state.md`), headed `### [Track] [N] — [Session] · [YYYY-MM-DD]`. Link it under a `### Side tracks` table in `## Session index`.
+- Record completion in `## Side tracks completed` in `learner/profile.md`, placed after `## Tiers completed` (create it if missing):
+
+  | Track | Sessions completed |
+  |-------|--------------------|
+  | Harness Design | Context as State (2026-10-22), Memory That Learns from Use (2026-10-23) |
+
+- Mastery topic is `[Track] [N] — [Session]`. If it lands in the review queue, `Due at session` is the number of curriculum sessions completed + 3.
+- Glossary `Source` tag is `<TAG>-<N>` from the registry (e.g. `HD-1`). Append the track to the intro line's session range (e.g. `Harness Design · 1–2`).
+- Regenerate `learner/progress.md`; the header count and charts are unchanged by a side-track session, only its `## Side tracks` section moves.
+- Commit with the session file staged too: `Session log: [Track] [N] — [Session] ([YYYY-MM-DD])`.
+- Close with Step 6 as usual.
 
 ---
 

@@ -1,3 +1,38 @@
+# Interactive tutorial
+
+This repo includes an AI-driven tutorial harness that walks you through the reading list interactively using Claude Code. It tracks your progress, adapts depth to your background, and picks up where you left off across sessions.
+
+**Requirements:** [Claude Code](https://claude.com/claude-code) and Git. No other setup needed.
+
+## Starting
+
+Open the repo in Claude Code and send:
+
+```
+Start
+```
+
+On the first run the agent asks a few background questions, creates `learner/profile.md` and `learner/relevance.md`, and begins session 1. These files are yours — commit or gitignore them as you prefer.
+
+## Resuming
+
+Open a new Claude Code conversation and send:
+
+```
+Continue
+```
+
+The agent reads your profile, finds the next session, and begins immediately.
+
+## How it works
+
+- **69 sessions** across 4 tiers (Foundations → Breadth → Depth → Specialist), following the reading order above.
+- **Depth calibration:** each topic has a HIGH / MED / LOW relevance rating in `learner/relevance.md` that controls how deeply the session goes. Edit this file at any time to tune focus.
+- **Progress tracking:** `learner/profile.md` records completed sessions, strengths, gaps, and open questions. The agent updates it and commits after every session.
+- **Session logs** stay in `learner/profile.md` until you have 15+ sessions, then split into `learner/sessions/`.
+
+---
+
 # Elicit Machine Learning Reading List
 
 ## Purpose

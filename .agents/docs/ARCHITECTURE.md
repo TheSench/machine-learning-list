@@ -14,6 +14,7 @@ CLAUDE.md          ← Tutorial trigger + pointer to AGENTS.md
 
 prompts/
   tier1/ … tier4/  ← 69 session prompt files; each covers one topic × tier
+  special/         ← Optional side tracks outside the 69; index.md is the registry
 
 learner/
   profile.md       ← Background + tiers-completed table + session log
@@ -46,5 +47,7 @@ User sends "Start" or "Continue"
 **Relevance-driven depth** — `learner/relevance.md` lets agent adapt depth without changing curriculum.
 
 **Glossary as flat running index** — `learner/glossary.md` stays one file, topic-sectioned rather than per-session, so a term has exactly one entry that later sessions deepen in place. It is written at the end of every session (see `.agents/TUTORIAL.md` Step 5) and never loaded wholesale at session start.
+
+**Side tracks outside the sequence** — `prompts/special/` holds optional session groups (e.g. recent-paper deep dives) that don't alter the 69-session count or tier totals. Pending = registered in `index.md` but missing from the profile's `Side tracks completed`; every Start/Continue surfaces pending tracks so they aren't forgotten. Their prompts embed source notes because the papers may postdate the tutor model's training.
 
 **Session splitting** — once session log exceeds ~15 entries, move individual sessions to `learner/sessions/` to keep `profile.md` readable.

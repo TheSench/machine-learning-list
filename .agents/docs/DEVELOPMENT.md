@@ -7,6 +7,14 @@
 3–5. New topic: add to session sequence table, `Tiers completed` template, and relevance file template in `.agents/TUTORIAL.md`
 6. Open PR — no direct commits to main
 
+## Add a side track
+
+1. Create `prompts/special/<track-slug>/NN-<session-slug>.md` per session — same format as tier prompts
+2. If the papers postdate the tutor model's training, embed a `## Source notes` section and instruct the tutor to teach only from it
+3. Register the track in `prompts/special/index.md`: name, unique short tag, date added, one-line About, session table
+4. No changes to `.agents/TUTORIAL.md` session sequence or counts
+5. Open PR
+
 ## Update the reading list
 
 1. Edit `README.md` — follow existing tier/topic structure

@@ -30,6 +30,7 @@ The agent reads your profile, finds the next session, and begins immediately.
 - **Depth calibration:** each topic has a HIGH / MED / LOW relevance rating in `learner/relevance.md` that controls how deeply the session goes. Edit this file at any time to tune focus.
 - **Progress tracking:** `learner/profile.md` records completed sessions, strengths, gaps, and open questions. The agent updates it and commits after every session.
 - **Session logs** stay in `learner/profile.md` until you have 15+ sessions, then split into `learner/sessions/`.
+- **Side tracks:** optional session groups outside the 69 (listed in `prompts/special/index.md`). Each Start/Continue reminds you of pending ones; send `side track` to start one.
 
 ---
 
